@@ -27,4 +27,8 @@ public class UserService {
         .orElse(null);
     }
 
+    public List<User> getUsers() {
+        return userList;
+    }
+
 }
