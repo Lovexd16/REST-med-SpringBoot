@@ -17,10 +17,10 @@ public class BookService {
     //Hårdkodade böcker som läggs i listan
     public BookService() {
         bookList = new ArrayList<>();
-        bookList.add(new Book("Earthsea Legend of Earthsea", "Siegfried Gierke"));
-        bookList.add(new Book("Shirin in Love", "Vaughn Maidens"));
-        bookList.add(new Book("Bill Bailey: Qualmpeddler", "Margo Laphorn"));
-        bookList.add(new Book("Moscow on the Hudson", "Doralynne Cattanach"));
+        bookList.add(new Book("Earthsea Legend of Earthsea", "Siegfried Gierke", false));
+        bookList.add(new Book("Shirin in Love", "Vaughn Maidens", false));
+        bookList.add(new Book("Bill Bailey: Qualmpeddler", "Margo Laphorn", false));
+        bookList.add(new Book("Moscow on the Hudson", "Doralynne Cattanach", true));
     }
 
     //Metod för att skriva ut en specifik bok
@@ -44,16 +44,39 @@ public class BookService {
 
     //Metod för att ta bort en bok
     public Book deleteBook(UUID id) {
-        Book bookToDelete = bookList.stream()
+        Book bookToDelete = bookList.stream() //Hittar den specifika boken med ID
         .filter(book -> id.equals(book.getId()))
         .findFirst()
         .orElse(null);
 
-        if (bookToDelete != null) {
+        if (bookToDelete != null) { //Om boken finns tas den bort
             bookList.remove(bookToDelete);
         }
 
         return bookToDelete;
     }
-    
-}
+
+    //Metod för att låna ut en bok
+    public boolean loanBook(UUID id) {
+        Book bookToLoan = getBook(id);
+
+        if (bookToLoan != null && !bookToLoan.isLoaned()) {
+            bookToLoan.setLoaned(true);
+            return true;
+        }
+
+        return false;
+    }
+
+    //Metod för att lämna tillbaka en utlånad bok
+    public boolean returnBook(UUID id) {
+        Book bookToReturn = getBook(id);
+
+            if (bookToReturn != null && bookToReturn.isLoaned()) {
+                bookToReturn.setLoaned(false);
+                return true;
+            }
+
+            return false;
+        }
+    }
