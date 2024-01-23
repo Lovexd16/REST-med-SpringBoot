@@ -41,5 +41,19 @@ public class BookService {
         bookList.add(book);
         return book;
     }
+
+    //Metod för att ta bort en bok
+    public Book deleteBook(UUID id) {
+        Book bookToDelete = bookList.stream()
+        .filter(book -> id.equals(book.getId()))
+        .findFirst()
+        .orElse(null);
+
+        if (bookToDelete != null) {
+            bookList.remove(bookToDelete);
+        }
+
+        return bookToDelete;
+    }
     
 }

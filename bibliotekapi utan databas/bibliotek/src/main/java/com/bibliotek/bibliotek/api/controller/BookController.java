@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +44,14 @@ public class BookController {
     public Book createBook(@RequestBody Book book) { //Ofta med Post så använder man RequestBody, då sparas all data och hela boken i ett
         System.out.println("book body: " + book);
         return bookService.createBook(book);
+    }
+
+    //DeleteMapping för att ta bort en specifik bok genom id
+    //I postman, Välj DELETE, skriv URL:en med ID:t av den bok du vill ska tas bort (ex http://localhost:8080/book?id=<id på boken>)
+    //Då ska boken ha tagits bort, kolla genom att köra GET http://localhost:8080/books och se om boken togs bort
+    @DeleteMapping("/book")
+    public Book deleteBook(@RequestParam UUID id) {
+        return bookService.deleteBook(id);
     }
 
 }
