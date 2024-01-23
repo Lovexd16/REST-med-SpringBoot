@@ -1,13 +1,13 @@
-package com.bibliotekapiutansql.com.bibliotekapiutansql;
+package com.bibliotek.bibliotek;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class BibliotekApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(BibliotekApplication.class, args);
 	}
 
 }
