@@ -1,12 +1,15 @@
 package com.bibliotekapi.bibliotekapi.api.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Book {
     private String title;
     private String author;
     private boolean loaned;
+
+    @Id
     private String isbn;
     
     public Book(String title, String author, boolean loaned, String isbn) {
