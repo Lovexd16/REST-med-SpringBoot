@@ -2,6 +2,7 @@ package com.bibliotek.bibliotek.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -16,18 +17,29 @@ public class BookService {
     //Hårdkodade böcker som läggs i listan
     public BookService() {
         bookList = new ArrayList<>();
-        bookList.add(new Book(1, "Earthsea Legend of Earthsea", "Siegfried Gierke"));
-        bookList.add(new Book(2, "Shirin in Love", "Vaughn Maidens"));
-        bookList.add(new Book(3, "Bill Bailey: Qualmpeddler", "Margo Laphorn"));
-        bookList.add(new Book(4, "Moscow on the Hudson", "Doralynne Cattanach"));
+        bookList.add(new Book("Earthsea Legend of Earthsea", "Siegfried Gierke"));
+        bookList.add(new Book("Shirin in Love", "Vaughn Maidens"));
+        bookList.add(new Book("Bill Bailey: Qualmpeddler", "Margo Laphorn"));
+        bookList.add(new Book("Moscow on the Hudson", "Doralynne Cattanach"));
     }
 
     //Metod för att skriva ut en specifik bok
-    public Book getBook(Integer id) {
+    public Book getBook(UUID id) {
         return bookList.stream() //Stream ittererar igenom vår collection (bookList)
         .filter(book -> id.equals(book.getId())) //Kollar om id:t stämmer
         .findFirst() //Plockar den första i listan med det id:t, även att det inte ska finnas flera med samma id.
         .orElse(null); //Om inget hittas returneras null
+    }
+
+    //metod för att skriva ut alla böckerna. Returnar hela listan
+    public List<Book> getBooks() {
+        return bookList;
+    }
+
+    //metod för att skapa ny bok
+    public Book createBook(Book book) { //Tar in book från controllern
+        bookList.add(book);
+        return book;
     }
     
 }

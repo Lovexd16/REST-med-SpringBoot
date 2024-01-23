@@ -1,7 +1,12 @@
 package com.bibliotek.bibliotek.api.controller;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +26,23 @@ public class BookController {
 
     //GetMapping för att få ut en specifik bok
     @GetMapping("/book")
-    public Book getBook(@RequestParam Integer id) {
-        return bookService.getBook(id); //Metod för att hitta rätt användare från BookService
+    public Book getBook(@RequestParam UUID id) {
+        return bookService.getBook(id); //Metod för att hitta rätt användare från BookService med hjälp av id
+    }
+
+    //GetMapping för att få ut alla böcker i listan
+    @GetMapping("/books")
+    public List<Book> getBooks() { 
+        return bookService.getBooks(); //Metod för att visa alla böckerna från bookService
+    }
+
+    //PostMapping för att skapa och lägga till nya böcker i listan. 
+    //I postman, välj POST, skriv url, i Headers välj "Content-Type" & value "application/json".
+    //Välj sedan Body & raw. Sedan skapa nytt objekt med title & author i json format
+    @PostMapping("/book") //Man kan ha samma route så länge det är olika mappings. Eftersom den andra mappingen med /book är en Get så är det helt ok
+    public Book createBook(@RequestBody Book book) { //Ofta med Post så använder man RequestBody, då sparas all data och hela boken i ett
+        System.out.println("book body: " + book);
+        return bookService.createBook(book);
     }
 
 }

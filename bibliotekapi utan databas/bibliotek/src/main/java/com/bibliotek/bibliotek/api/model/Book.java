@@ -1,23 +1,21 @@
 package com.bibliotek.bibliotek.api.model;
 
+import java.util.UUID;
+
 public class Book {
 
-    private int id;
+    private UUID id;
     private String title;
     private String author;
     
-    public Book(int id, String title, String author) {
-        this.id = id;
+    public Book(String title, String author) {
+        id = UUID.randomUUID(); //Använd UUID för att få ett random autogenererat ID. Detta gör sidan säkrare och oförutsägbar
         this.title = title;
         this.author = author;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
