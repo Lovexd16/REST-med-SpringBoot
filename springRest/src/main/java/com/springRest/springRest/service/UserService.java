@@ -37,4 +37,17 @@ public class UserService {
         return user;
     }
 
+    public User editUser(UUID id, User updateUser) {
+        User editUser = userList.stream()
+        .filter(user -> user.getId().equals(id))
+        .findFirst()
+        .orElse(null);
+
+        if(editUser != null) {
+            editUser.setName(updateUser.getName());
+        }
+
+        return editUser;
+    }
+
 }

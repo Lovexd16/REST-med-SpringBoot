@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,5 +39,11 @@ public class UserController {
     public User createUser(@RequestBody User user) {
         System.out.println("user body " + user);
         return userService.createUser(user);
+    }
+
+    @PatchMapping("/user") //För att edita en user
+    public User editUser(@RequestParam UUID id, @RequestBody User user) {
+        System.out.println("Patch " + user + id);
+        return userService.editUser(id, user);
     }
 }
